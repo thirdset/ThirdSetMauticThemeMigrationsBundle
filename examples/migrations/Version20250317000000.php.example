@@ -1,0 +1,78 @@
+<?php
+
+/*
+ * @package     ThirdSetMauticThemeMigrationsBundle
+ * @copyright   2025 Third Set Productions.
+ * @author      Third Set Productions
+ * @link        https://www.thirdset.com
+ * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+namespace Mautic\Migrations;
+
+use MauticPlugin\ThirdSetMauticThemeMigrationsBundle\Doctrine\AbstractMauticThemeMigration;
+use MauticPlugin\ThirdSetMauticThemeMigrationsBundle\Doctrine\MauticThemeMigrationInterface;
+
+/**
+ * Migrate 1.0.0 to 1.0.1.
+ *
+ * This example migration illustrates how to apply changes to existing emails
+ * created using your theme.
+ *
+ * Instructions
+ *
+ *  * Copy this file to a new 'migrations' folder inside your theme.
+ *  * Update the file name and theme name to reflect the version number that you
+ *    want to use.
+ *  * Update the code below to change the email HTML as desired.
+ *  * Test using:
+ *
+ *  `php app/console mautic:theme:migrations:migrate --theme="mytheme" --migration 20250317000000 --email-id 1234 --dry-run --verbose`
+ *
+ *  * When you have it working how you want it, execute the migration by removing the `--dry-run` option.
+ *  * To execute on all emails that use the theme/template, remove the `--email-id 1234` option.
+ *
+ * Class Version20250317000000
+ */
+class Version20250317000000 extends AbstractMauticThemeMigration implements MauticThemeMigrationInterface
+{
+    /**
+     * Helper method that updates the HTML.
+     *
+     * @param string $html The HTML to update.
+     * @return string Returns the updated HTML.
+     */
+    public function doUpdateEmailHtml($html)
+    {
+        $newHtml = $html;
+
+        // Update CDN URLs.
+        $newHtml = preg_replace(
+            '/s3-us-west-2\.amazonaws\.com\/example/', // pattern.
+            'static.example.com', // new.
+            $newHtml
+        );
+        $newHtml = preg_replace(
+            '/abcdefg12345\.cloudfront\.net/', // pattern.
+            'static.example.com', // new.
+            $newHtml
+        );
+
+        // Remove Google+ icon/link.
+        $newHtml = preg_replace(
+            '/\s\<a\shref\=\"https\:\/\/plus\.google\.com.*?\<\\/a\>\&nbsp\;/', // pattern.
+            '', // new.
+            $newHtml
+        );
+
+        // Substitue dummyimage.com in for placehold.it (now defunct).
+        $newHtml = preg_replace(
+            '/http[s]*\:\/\/placehold\.it/', // pattern.
+            'https://dummyimage.com', // new.
+            $newHtml
+        );
+
+        return $newHtml;
+    }
+
+}
