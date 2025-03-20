@@ -16,7 +16,7 @@ This plugin has been tested with up to v2.16.5 of Mautic.
 2. Manually delete your cache (app/cache/prod).
 3. In the Mautic GUI, go to the gear and then to Plugins.
 4. Click the down arrow in the top right and select "Install/Upgrade Plugins"
-5. You should now see the Reset plugin in your list of plugins.
+5. You should now see the Theme Migrations plugin in your list of plugins.
 
 ## [Usage](id:usage)
 
