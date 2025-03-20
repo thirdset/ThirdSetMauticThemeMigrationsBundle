@@ -10,7 +10,7 @@
 return array(
     'name'        => 'Theme Migrations',
     'description' => 'Allows for migrating existing emails to use the latest version of the theme.',
-    'version'     => '0.1.0',
+    'version'     => '1.0.0',
     'author'      => 'Third Set Productions',
     'services'    => array(
         'other'   => array(
